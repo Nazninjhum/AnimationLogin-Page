@@ -148,7 +148,13 @@ class _RegisterPageState extends State<RegisterPage>with SingleTickerProviderSta
                         },
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          hintText: 'Mobile Number',
+                          hintText: 'Mobile Number'
+                              ''
+                              ''
+                              ''
+                              ''
+                              ''
+                              '',
                           hintStyle: TextStyle(color: Colors.white),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
