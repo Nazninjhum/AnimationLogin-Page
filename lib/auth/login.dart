@@ -84,30 +84,44 @@ class _LoginState extends State<Login>with SingleTickerProviderStateMixin {
                     hintStyle: TextStyle(color: Colors.white),
                     icon: Icon(Icons.email,color: Color(0xff1B1464),size: 25,),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.cyan),
+                      borderSide: BorderSide(color: Colors.red),
                     ),
                     errorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.cyan),
+                      borderSide: BorderSide(color: Colors.red),
                     ),
                   ),
                 ),
                 SizedBox(height: 10,),
                 TextFormField(
                   obscureText: _obsecureText,
-                  keyboardType: TextInputType.emailAddress,
+                  validator: (value){
+                    if(value!.isEmpty || value.length<8){
+                      return 'Please enter valid password';
+
+                    }
+                    else{
+                      return null;
+                    }
+
+
+                  },
                   controller: _passwordController,
-                  style: TextStyle(color: Colors.deepOrange),
+                  style: TextStyle(color: Colors.white70),
                   decoration: InputDecoration(
-                    hintText: 'Password',
-                    hintStyle: TextStyle(color: Colors.white),
+                    hintText: "Password",
+                    hintStyle:  TextStyle(color: Colors.white),
                     icon: Icon(Icons.remove_red_eye,color: Color(0xff1B1464),size: 25,),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.cyan),
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
                     ),
                     errorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.cyan),
+                      borderSide: BorderSide(color: Colors.red),
                     ),
                   ),
+
                 ),
                 SizedBox(height: 60,),
 
@@ -134,6 +148,9 @@ class _LoginState extends State<Login>with SingleTickerProviderStateMixin {
                         ),),
                         padding: EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 10),
                       ),),
+                      SizedBox(
+                        width: 20,
+                      ),
                       Expanded(child:  FlatButton(
                         onPressed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterPage()));

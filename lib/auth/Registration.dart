@@ -7,18 +7,35 @@ class RegisterPage extends StatefulWidget {
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
+
+
 class _RegisterPageState extends State<RegisterPage>with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation <double> _animation;
-  late TextEditingController _nameController= TextEditingController(text: '');
+  late TextEditingController _fullnameController= TextEditingController(text: '');
   late TextEditingController _mobilenumberController= TextEditingController(text: '');
   late TextEditingController _emailController= TextEditingController(text: '');
   late TextEditingController _passwordController= TextEditingController(text: '');
   bool _obsecureText=true;
 
+  final _registerFormKey = GlobalKey<FormState>();
+
+
+
+  FocusNode _fullnameFocusNode = FocusNode();
+  FocusNode _mobilenumberFocusNode = FocusNode();
+  FocusNode _emailFocusNode = FocusNode();
+  FocusNode _passwordFocusNode = FocusNode();
+
+
+
   @override
   void dispose() {
     _animationController.dispose();
+    _fullnameController.dispose();
+    _mobilenumberController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
   @override
@@ -38,6 +55,11 @@ class _RegisterPageState extends State<RegisterPage>with SingleTickerProviderSta
     });
     _animationController.forward();
     super.initState();
+  }
+
+  void _submitFormRegister(){
+    final isValid = _registerFormKey.currentState!.validate();
+    print(';Invalid $isValid');
   }
 
   @override
@@ -75,73 +97,138 @@ class _RegisterPageState extends State<RegisterPage>with SingleTickerProviderSta
                     ],
                   ),
                 ),
-                SizedBox(height: 40,),
-                TextFormField(
-                  keyboardType: TextInputType.name,
-                  controller: _nameController,
-                  style: TextStyle(color: Colors.deepOrange),
-                  decoration: InputDecoration(
-                    hintText: 'Name',
-                    hintStyle: TextStyle(color: Colors.black),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    errorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.cyan),
-                    ),
-                  ),
+                SizedBox(
+                  height: 20,
                 ),
-                SizedBox(height: 15,),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: _mobilenumberController,
-                  style: TextStyle(color: Colors.deepOrange),
-                  decoration: InputDecoration(
-                    hintText: 'Mobile Number',
-                    hintStyle: TextStyle(color: Colors.black),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    errorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.cyan),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 15,),
-                TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _emailController,
-                  style: TextStyle(color: Colors.deepOrange),
-                  decoration: InputDecoration(
-                    hintText: 'email',
-                    hintStyle: TextStyle(color: Colors.black),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    errorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.cyan),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 15,),
-                TextFormField(
-                  obscureText: _obsecureText,
-                  keyboardType: TextInputType.visiblePassword,
-                  controller: _passwordController,
-                  style: TextStyle(color: Colors.deepOrange),
-                  decoration: InputDecoration(
-                    hintText: 'Password',
-                    hintStyle: TextStyle(color: Colors.black),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    errorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.cyan),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 60,),
+                Form(key: _registerFormKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        textInputAction: TextInputAction.next,
+                        onEditingComplete: ()=>FocusScope.of(context).requestFocus(_fullnameFocusNode),
+                        focusNode: _fullnameFocusNode,
+                        keyboardType: TextInputType.name,
+                        controller: _fullnameController,
+                        validator: (value){
 
+                          if(value!.isEmpty){
+                            return "plz enter valid name";
+                          }else{return null;}
+
+                        },
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: 'Full name',
+                          hintStyle: TextStyle(color: Colors.white),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.yellowAccent),
+                          ),
+                          errorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                          ),
+                        ),
+
+                      ),
+                      SizedBox(height: 20),
+                      TextFormField(
+                        textInputAction: TextInputAction.next,
+                        onEditingComplete: ()=>FocusScope.of(context).requestFocus(_mobilenumberFocusNode),
+                        focusNode: _mobilenumberFocusNode,
+                        keyboardType: TextInputType.name,
+                        controller: _mobilenumberController,
+                        validator: (value){
+
+                          if(value!.isEmpty){
+                            return "plz enter valid number";
+                          }else{return null;}
+
+                        },
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: 'Mobile Number',
+                          hintStyle: TextStyle(color: Colors.white),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.yellowAccent),
+                          ),
+                          errorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                          ),
+                        ),
+
+                      ),
+                      SizedBox(height: 20,),
+                      TextFormField(
+                        textInputAction: TextInputAction.done,
+                        onEditingComplete: ()=>_submitFormRegister(),
+                        focusNode: _emailFocusNode,
+                        keyboardType: TextInputType.emailAddress,
+                        controller: _emailController,
+                        validator: (value){
+
+                          if(value!.isEmpty){
+                            return "plz enter valid Email";
+                          }else{return null;}
+
+                        },
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: 'Email',
+                          hintStyle: TextStyle(color: Colors.white),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.yellowAccent),
+                          ),
+                          errorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                          ),
+                        ),
+
+                      ),
+                      SizedBox(height: 20,),
+                      TextFormField(
+                        obscureText: _obsecureText,
+                        textInputAction: TextInputAction.next,
+                        onEditingComplete: ()=>FocusScope.of(context).requestFocus(_passwordFocusNode),
+                        focusNode: _passwordFocusNode,
+                        keyboardType: TextInputType.visiblePassword,
+                        controller: _passwordController,
+                        validator: (value){
+
+                          if(value!.isEmpty){
+                            return "plz enter valid Password";
+                          }else{return null;}
+
+                        },
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: 'Password',
+                          hintStyle: TextStyle(color: Colors.white),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.yellowAccent),
+                          ),
+                          errorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                          ),
+                        ),
+
+                      ),
+                      SizedBox(height: 50,),
+
+                    ],
+                  ),
+
+                ),
                 RaisedButton(
                   onPressed: (){},
                   color: Color(0xff009432),
@@ -167,6 +254,9 @@ class _RegisterPageState extends State<RegisterPage>with SingleTickerProviderSta
                           ],
                         ),
                       ),),
+                      SizedBox(
+                        width: 20,
+                      ),
                       Expanded(child:  FlatButton(
                         onPressed: (){
                           Navigator.pop(context);
