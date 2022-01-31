@@ -168,7 +168,7 @@ class _RegisterPageState extends State<RegisterPage>with SingleTickerProviderSta
                         ),
 
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 21,),
                       TextFormField(
                         textInputAction: TextInputAction.done,
                         onEditingComplete: ()=>_submitFormRegister(),

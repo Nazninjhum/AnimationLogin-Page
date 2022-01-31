@@ -123,7 +123,7 @@ class _LoginState extends State<Login>with SingleTickerProviderStateMixin {
                   ),
 
                 ),
-                SizedBox(height: 55,),
+                SizedBox(height: 60,),
 
                 RaisedButton(
                   onPressed: (){},
